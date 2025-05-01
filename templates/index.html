@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendicitis Analysis Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .section-title {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        #results-container {
+            display: none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Appendicitis Data Analysis Tool</h1>
+        
+        <form id="data-form">
+            <!-- Cases Section -->
+            <div class="section-title">
+                <h3>Appendicitis Cases</h3>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label class="form-label">Parameter</label>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">Pre-pandemic (2019)</label>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">Lockdown (2020)</label>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">Post-lockdown (2021)</label>
+                </div>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Total appendicitis cases</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="total_cases_2019" value="25407">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="total_cases_2020" value="22002">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="total_cases_2021" value="21245">
+                </div>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Acute appendicitis with generalized peritonitis</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_general_2019" value="2424">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_general_2020" value="2213">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_general_2021" value="1989">
+                </div>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Acute appendicitis with localized peritonitis</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_local_2019" value="11597">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_local_2020" value="10728">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="peritonitis_local_2021" value="11096">
+                </div>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Uncomplicated acute appendicitis</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="uncomplicated_2019" value="11386">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="uncomplicated_2020" value="9065">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="uncomplicated_2021" value="8160">
+                </div>
+            </div>
+            
+            <!-- Healthcare Costs Section -->
+            <div class="section-title">
+                <h3>Healthcare Costs</h3>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Average Cost of hospital stay (THB)</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="avg_cost_2019" value="10682.2">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="avg_cost_2020" value="11112.2">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="avg_cost_2021" value="12195.7">
+                </div>
+            </div>
+            
+            <!-- Procedure Distribution Section -->
+            <div class="section-title">
+                <h3>Procedure Distribution</h3>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Open Appendectomy (OA) cases</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="oa_cases_2019" value="22223">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="oa_cases_2020" value="19416">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="oa_cases_2021" value="18642">
+                </div>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Laparoscopic Appendectomy (LA) cases</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="la_cases_2019" value="256">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="la_cases_2020" value="243">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="la_cases_2021" value="257">
+                </div>
+            </div>
+            
+            <!-- Diagnostic Imaging Section -->
+            <div class="section-title">
+                <h3>Diagnostic Imaging</h3>
+            </div>
+            
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>CT Scan</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="ct_scans_2019" value="1870">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="ct_scans_2020" value="2181">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="ct_scans_2021" value="2686">
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-3">
+                    <label>Ultrasonography (US)</label>
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="us_scans_2019" value="984">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="us_scans_2020" value="880">
+                </div>
+                <div class="col-3">
+                    <input type="number" class="form-control" name="us_scans_2021" value="897">
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Calculate Results</button>
+                </div>
+            </div>
+        </form>
+        
+        <!-- Results Section -->
+        <div id="results-container" class="mb-5">
+            <h2 class="text-center mb-4">Analysis Results</h2>
+            
+            <div class="section-title">
+                <h3>Healthcare Costs (THB)</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Pre-pandemic (2019)</th>
+                            <th>Lockdown (2020)</th>
+                            <th>Post-lockdown (2021)</th>
+                            <th>% Change (2019-2020)</th>
+                            <th>% Change (2019-2021)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total cost (THB)</td>
+                            <td id="total-cost-2019"></td>
+                            <td id="total-cost-2020"></td>
+                            <td id="total-cost-2021"></td>
+                            <td id="total-cost-change-2020"></td>
+                            <td id="total-cost-change-2021"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section-title">
+                <h3>Diagnostic Imaging Utilization</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Pre-pandemic (2019)</th>
+                            <th>Lockdown (2020)</th>
+                            <th>Post-lockdown (2021)</th>
+                            <th>% Change (2019-2020)</th>
+                            <th>% Change (2019-2021)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CT scan utilization (% of total cases)</td>
+                            <td id="ct-percent-2019"></td>
+                            <td id="ct-percent-2020"></td>
+                            <td id="ct-percent-2021"></td>
+                            <td id="ct-percent-change-2020"></td>
+                            <td id="ct-percent-change-2021"></td>
+                        </tr>
+                        <tr>
+                            <td>Ultrasonography (% of total cases)</td>
+                            <td id="us-percent-2019"></td>
+                            <td id="us-percent-2020"></td>
+                            <td id="us-percent-2021"></td>
+                            <td id="us-percent-change-2020"></td>
+                            <td id="us-percent-change-2021"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section-title">
+                <h3>Carbon Emissions</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Pre-pandemic (2019)</th>
+                            <th>Lockdown (2020)</th>
+                            <th>Post-lockdown (2021)</th>
+                            <th>% Change (2019-2020)</th>
+                            <th>% Change (2019-2021)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>OA emissions (kgCO₂e)</td>
+                            <td id="oa-emissions-2019"></td>
+                            <td id="oa-emissions-2020"></td>
+                            <td id="oa-emissions-2021"></td>
+                            <td id="oa-emissions-change-2020"></td>
+                            <td id="oa-emissions-change-2021"></td>
+                        </tr>
+                        <tr>
+                            <td>LA emissions (kgCO₂e)</td>
+                            <td id="la-emissions-2019"></td>
+                            <td id="la-emissions-2020"></td>
+                            <td id="la-emissions-2021"></td>
+                            <td id="la-emissions-change-2020"></td>
+                            <td id="la-emissions-change-2021"></td>
+                        </tr>
+                        <tr>
+                            <td>CT scan emissions (kgCO₂e)</td>
+                            <td id="ct-emissions-2019"></td>
+                            <td id="ct-emissions-2020"></td>
+                            <td id="ct-emissions-2021"></td>
+                            <td id="ct-emissions-change-2020"></td>
+                            <td id="ct-emissions-change-2021"></td>
+                        </tr>
+                        <tr>
+                            <td>Ultrasonography (kgCO₂e)</td>
+                            <td id="us-emissions-2019"></td>
+                            <td id="us-emissions-2020"></td>
+                            <td id="us-emissions-2021"></td>
+                            <td id="us-emissions-change-2020"></td>
+                            <td id="us-emissions-change-2021"></td>
+                        </tr>
+                        <tr>
+                            <td>Total emissions (kgCO₂e)</td>
+                            <td id="total-emissions-2019"></td>
+                            <td id="total-emissions-2020"></td>
+                            <td id="total-emissions-2021"></td>
+                            <td id="total-emissions-change-2020"></td>
+                            <td id="total-emissions-change-2021"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section-title">
+                <h3>Social Cost of Carbon</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Pre-pandemic (2019)</th>
+                            <th>Lockdown (2020)</th>
+                            <th>Post-lockdown (2021)</th>
+                            <th>% Change (2019-2020)</th>
+                            <th>% Change (2019-2021)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total SC-CO₂ (THB)</td>
+                            <td id="sc-co2-2019"></td>
+                            <td id="sc-co2-2020"></td>
+                            <td id="sc-co2-2021"></td>
+                            <td id="sc-co2-change-2020"></td>
+                            <td id="sc-co2-change-2021"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Submit data to backend
+            fetch('/calculate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update results
+                updateResults(data);
+                
+                // Show results container
+                document.getElementById('results-container').style.display = 'block';
+                
+                // Scroll to results
+                document.getElementById('results-container').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+        
+        function updateResults(data) {
+            const results = data.results;
+            const changes = data.changes;
+            
+            // Format number function
+            function formatNumber(num, decimals = 1) {
+                return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+            }
+            
+            // Update healthcare costs
+            document.getElementById('total-cost-2019').textContent = formatNumber(results['2019'].total_cost, 1);
+            document.getElementById('total-cost-2020').textContent = formatNumber(results['2020'].total_cost, 1);
+            document.getElementById('total-cost-2021').textContent = formatNumber(results['2021'].total_cost, 1);
+            document.getElementById('total-cost-change-2020').textContent = formatNumber(changes['2019-2020'].total_cost) + '%';
+            document.getElementById('total-cost-change-2021').textContent = formatNumber(changes['2019-2021'].total_cost) + '%';
+            
+            // Update diagnostic imaging
+            document.getElementById('ct-percent-2019').textContent = formatNumber(results['2019'].ct_percentage, 1) + '%';
+            document.getElementById('ct-percent-2020').textContent = formatNumber(results['2020'].ct_percentage, 1) + '%';
+            document.getElementById('ct-percent-2021').textContent = formatNumber(results['2021'].ct_percentage, 1) + '%';
+            document.getElementById('ct-percent-change-2020').textContent = formatNumber(changes['2019-2020'].ct_percentage) + '%';
+            document.getElementById('ct-percent-change-2021').textContent = formatNumber(changes['2019-2021'].ct_percentage) + '%';
+            
+            document.getElementById('us-percent-2019').textContent = formatNumber(results['2019'].us_percentage, 1) + '%';
+            document.getElementById('us-percent-2020').textContent = formatNumber(results['2020'].us_percentage, 1) + '%';
+            document.getElementById('us-percent-2021').textContent = formatNumber(results['2021'].us_percentage, 1) + '%';
+            document.getElementById('us-percent-change-2020').textContent = formatNumber(changes['2019-2020'].us_percentage) + '%';
+            document.getElementById('us-percent-change-2021').textContent = formatNumber(changes['2019-2021'].us_percentage) + '%';
+            
+            // Update carbon emissions
+            document.getElementById('oa-emissions-2019').textContent = formatNumber(results['2019'].oa_emissions, 1);
+            document.getElementById('oa-emissions-2020').textContent = formatNumber(results['2020'].oa_emissions, 1);
+            document.getElementById('oa-emissions-2021').textContent = formatNumber(results['2021'].oa_emissions, 1);
+            document.getElementById('oa-emissions-change-2020').textContent = formatNumber(changes['2019-2020'].oa_emissions) + '%';
+            document.getElementById('oa-emissions-change-2021').textContent = formatNumber(changes['2019-2021'].oa_emissions) + '%';
+            
+            document.getElementById('la-emissions-2019').textContent = formatNumber(results['2019'].la_emissions, 1);
+            document.getElementById('la-emissions-2020').textContent = formatNumber(results['2020'].la_emissions, 1);
+            document.getElementById('la-emissions-2021').textContent = formatNumber(results['2021'].la_emissions, 1);
+            document.getElementById('la-emissions-change-2020').textContent = formatNumber(changes['2019-2020'].la_emissions) + '%';
+            document.getElementById('la-emissions-change-2021').textContent = formatNumber(changes['2019-2021'].la_emissions) + '%';
+            
+            document.getElementById('ct-emissions-2019').textContent = formatNumber(results['2019'].ct_emissions, 1);
+            document.getElementById('ct-emissions-2020').textContent = formatNumber(results['2020'].ct_emissions, 1);
+            document.getElementById('ct-emissions-2021').textContent = formatNumber(results['2021'].ct_emissions, 1);
+            document.getElementById('ct-emissions-change-2020').textContent = formatNumber(changes['2019-2020'].ct_emissions) + '%';
+            document.getElementById('ct-emissions-change-2021').textContent = formatNumber(changes['2019-2021'].ct_emissions) + '%';
+            
+            document.getElementById('us-emissions-2019').textContent = formatNumber(results['2019'].us_emissions, 1);
+            document.getElementById('us-emissions-2020').textContent = formatNumber(results['2020'].us_emissions, 1);
+            document.getElementById('us-emissions-2021').textContent = formatNumber(results['2021'].us_emissions, 1);
+            document.getElementById('us-emissions-change-2020').textContent = formatNumber(changes['2019-2020'].us_emissions) + '%';
+            document.getElementById('us-emissions-change-2021').textContent = formatNumber(changes['2019-2021'].us_emissions) + '%';
+            
+            document.getElementById('total-emissions-2019').textContent = formatNumber(results['2019'].total_emissions, 1);
+            document.getElementById('total-emissions-2020').textContent = formatNumber(results['2020'].total_emissions, 1);
+            document.getElementById('total-emissions-2021').textContent = formatNumber(results['2021'].total_emissions, 1);
+            document.getElementById('total-emissions-change-2020').textContent = formatNumber(changes['2019-2020'].total_emissions) + '%';
+            document.getElementById('total-emissions-change-2021').textContent = formatNumber(changes['2019-2021'].total_emissions) + '%';
+            
+            // Update social cost of carbon
+            document.getElementById('sc-co2-2019').textContent = formatNumber(results['2019'].sc_co2, 1);
+            document.getElementById('sc-co2-2020').textContent = formatNumber(results['2020'].sc_co2, 1);
+            document.getElementById('sc-co2-2021').textContent = formatNumber(results['2021'].sc_co2, 1);
+            document.getElementById('sc-co2-change-2020').textContent = formatNumber(changes['2019-2020'].sc_co2) + '%';
+            document.getElementById('sc-co2-change-2021').textContent = formatNumber(changes['2019-2021'].sc_co2) + '%';
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
